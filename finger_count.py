@@ -19,7 +19,7 @@ while(True):
     # Apply Gaussian blur
     image_blur = cv2.GaussianBlur(image_crop, (3, 3), 0)
 
-    # Change color-space from BGR -> HSV
+    # Change color-space from BGR to HSV
     image_hsv = cv2.cvtColor(image_blur, cv2.COLOR_BGR2HSV)
 
     # Create a binary image with where white will be skin colors and rest is black
@@ -32,7 +32,7 @@ while(True):
     image_dilation = cv2.dilate(mask, kernel, iterations=1)
     image_erosion = cv2.erode(image_dilation, kernel, iterations=1)
 
-    # Apply Gaussian Blur and Threshold
+    # Apply Gaussian Blur and then Threshold
     image_filtered = cv2.GaussianBlur(image_erosion, (3, 3), 0)
     ret, image_thresh = cv2.threshold(image_filtered, 200, 255, 0)
 
@@ -58,7 +58,7 @@ while(True):
         cv2.drawContours(drawing, [contour], -1, (0, 255, 0), 0)
         cv2.drawContours(drawing, [hull], -1, (0, 0, 255), 0)
 
-        # Find convexity defects
+        # Find convexity Print number of fingers number of fingerss
         hull = cv2.convexHull(contour, returnPoints=False)
         defects = cv2.convexityDefects(contour, hull)
 
@@ -84,7 +84,7 @@ while(True):
 
             cv2.line(image_crop, start, end, [0, 255, 0], 2)
 
-        # Print number of fingers
+        # Print number of fingers according to the number of convexity defects
         if count_defects == 0:
             cv2.putText(image, "ONE", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2,(0,0,255),5)
         elif count_defects == 1:
@@ -100,12 +100,12 @@ while(True):
     except:
         pass
 
-    # Show required images
+    # Show all the required images
     cv2.imshow("Gesture", image)
     all_image = np.hstack((drawing, image_crop))
     cv2.imshow('Contours', all_image)
 
-    if cv2.waitKey(1) == 27:
+    if cv2.waitKey(1) == 27:    #exits on escape
         break
 
 cv2.destroyAllWindows()
