@@ -2,7 +2,15 @@
 
 This will help in detecting fingers in a frame with the help of OpenCV.
 
-Steps: 
-    Step 1: The camera wil capture the image,but we will do this capture process on
-        every 1ms intertval so that the optput that we show will look like a video.
-    Step 2: The image captured will then be converted to its HSV value because
+<body>Steps: 
+   <ul>
+    <li>Capture an image</li>
+    <li>Convert it to HSV</li>
+    <li>Seperate out hand and background</li>
+    <li>Apply morphological operations</li>
+    <li>Find contours, find the one with max. area i.e. maxContour</li>
+    <li>Create bounding rectangle around the maxContour</li>
+    <li>Find number of convexity defects</li>
+    <li>Print number of finger by counting no. of convexity defects</li>
+   </ul>
+    </body>
